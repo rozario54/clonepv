@@ -1,0 +1,78 @@
+/* styles.css - custom styling to match the screenshot look */
+
+:root{
+  --nav-bg: #071019;        /* very dark bluish black */
+  --muted-white: #dbe9f1;   /* off-white for logo & text */
+  --accent-blue: #0b86ff;   /* join prime button */
+}
+
+/* Navbar base */
+.prime-navbar {
+  background: linear-gradient(180deg, rgba(7,16,25,1) 0%, rgba(3,9,14,1) 100%);
+  height: 64px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Logo */
+.logo-text {
+  color: var(--muted-white);
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  font-size: 20px;
+}
+.logo-video {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Center nav links */
+.navbar-nav .nav-link {
+  color: rgba(255,255,255,0.78);
+  font-size: 15px;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.navbar-nav .nav-link:hover { color: #fff; }
+.navbar-nav .nav-link.active { color: #ffffff; font-weight: 600; }
+
+/* Vertical divider (bootstrap .vr is used - style override) */
+.vr.divider {
+  width: 1px;
+  background-color: rgba(255,255,255,0.06);
+  height: 28px;
+}
+
+/* Right controls */
+.search-btn { color: rgba(255,255,255,0.82); }
+.small-icon { opacity: 0.85; }
+.bi { vertical-align: -.125em; }
+
+/* Avatar */
+.avatar-wrapper { width: 36px; height: 36px; display: inline-block; }
+.avatar-img { width: 36px; height: 36px; object-fit: cover; border: 1px solid rgba(255,255,255,0.06); }
+
+/* Join Prime button */
+.join-prime-btn {
+  background: linear-gradient(180deg, #1e9bff, #0887ff);
+  color: white;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(8,135,255,0.18);
+  text-decoration: none;
+}
+
+/* Remove underline on link-like buttons */
+.btn-link { text-decoration: none; }
+
+/* Make the center nav sit slightly left on large screens like screenshot */
+@media (min-width: 1200px) {
+  .navbar-nav { margin-right: 8rem; } /* tweak as needed for exact centering */
+}
+
+/* Tweak for smaller screens */
+@media (max-width: 991px) {
+  .navbar-nav { margin-left: 0; }
+  .join-prime-btn { display:inline-block; } /* show button in collapsed area or change as desired */
+}
