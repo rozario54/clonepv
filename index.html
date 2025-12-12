@@ -3,93 +3,413 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prime-like Navbar</title>
+  <title>Starbucks.in</title>
 
-  <!-- Bootstrap CSS (v5.3+) -->
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap Icons (optional, used for a few icons) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Material symbols (for the location icon) -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+   <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* === Custom styles (kept minimal, Bootstrap handles most responsiveness) === */
+    :root{
+      --sb-dark: #006241;
+      --sb-red: #9e0025;
+      --sb-deep: #32462f;
+      --text-muted: #6b6969;
+    }
+
+    body {
+      background: #0b0b0b; /* dark background to match your initial <body class="bg-dark"> */
+      color: white;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* Navbar tweaks */
+    .navbar-brand img { height: 36px; }
+    .nav-link { color: black !important; }
+    .nav-link:hover { color: var(--sb-dark) !important; }
+
+    .btn-outline-light {
+      color: #fff;
+      border-radius: 30px;
+    }
+
+    .btn-join {
+      background: #000;
+      color: #fff;
+      border-radius: 30px;
+    }
+
+    /* Hero / CTA */
+    .hero {
+      background: var(--sb-deep);
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    .hero h1 { font-weight: 700; font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 1rem; }
+    .btn-cta {
+      border-radius: 30px;
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      padding: .6rem 1.25rem;
+    }
+    .btn-cta:hover { background: rgba(255,255,255,.06); color: #fff; }
+
+    /* Section styles */
+    .section-red { background: var(--sb-red); color: #fff; padding: 3rem 0; }
+    .section-green { background: var(--sb-dark); color: #fff; padding: 3rem 0; }
+    .small-note { color: #ddd; font-size: .9rem; }
+
+    .img-full { width: 100%; height: 100%; object-fit: cover; border-radius: .25rem; }
+
+    /* Footer */
+    footer .logo { width: 42px; height: 42px; margin-right: .5rem; }
+    .footer-links li { list-style: none; margin-bottom: .35rem; color: var(--text-muted); }
+    .footer-links a { color: var(--text-muted); text-decoration: none; }
+    hr.hr-custom { border-color: rgba(255,255,255,.06); }
+
+    /* Small adjustments for spacing */
+    .gap-30 { gap: 1.9rem; }
+
+    
+    /* --- general styling to match screenshot --- */
+    .site-navbar {
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background-color: #fff;
+      color: black;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #00704a; /* Starbucks green-ish */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* small centred white ring like in logo */
+    .brand-logo img {
+      width: 70%;
+      height: auto;
+      display: block;
+    }
+
+    .nav-center {
+      gap: 28px;
+      font-weight: 1000;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .nav-center .nav-link {
+      color: #111827;
+      padding: 0.5rem .25rem;
+    } 
+
+     .nav-center .nav-link:hover {
+      color: #00704a;
+      text-decoration: none;
+    }
+
+    .right-actions {
+      gap: 12px;
+      align-items: start;
+     
+    }
+
+    .find-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: #4b5563;
+      text-decoration: none;
+    }
+
+    .find-store .bi {
+      font-size: 1.05rem;
+    }
+
+    .btn-signin {
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    .btn-join {
+      border-radius: 999px;
+      padding: 6px 18px;
+      background: #000;
+      color: #fff;
+      border: none;
+    }
+
+    @media (min-width: 992px) {
+      /* center the nav links between logo and actions */
+      .navbar .mx-auto {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Tweak collapse menu look */
+    .navbar-collapse {
+      justify-content: flex-end;
+    }
+
+  
+
+  </style>
 </head>
-<body class="bg-dark">
-
-<nav class="navbar navbar-expand-xl navbar-dark prime-navbar px-3">
+<body>
+<div >
+  <!-- NAVBAR -->
+<nav class="navbar site-navbar navbar-expand-lg py-2">
   <div class="container-fluid">
-
-    <!-- Left: logo -->
-    <a class="navbar-brand d-flex align-items-center me-4" href="#">
-      <!-- simple text logo; replace with svg or img if you prefer -->
-      <span class="logo-text">prime <span class="logo-video">video</span></span>
+    <!-- Left: logo + optional brand text -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <span class="brand-logo"><img src="https://upload.wikimedia.org/wikipedia/sco/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/763px-Starbucks_Corporation_Logo_2011.svg.png" alt="">
+       
+      </span>
     </a>
 
-    <!-- Collapse toggle for smaller screens -->
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#primeNav"
-      aria-controls="primeNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Toggler for small screens -->
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Center + right -->
-    <div class="collapse navbar-collapse" id="primeNav">
-
-      <!-- Center navigation links -->
-      <ul class="navbar-nav mx-auto mb-2 mb-xl-0 align-items-center">
-        <li class="nav-item"><a class="nav-link active px-3" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#">Movies</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#">TV shows</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#">Live TV</a></li>
-
-        <!-- vertical divider + subscriptions -->
-        <li class="nav-item d-flex align-items-center ms-3">
-          <span class="vr divider mx-3 d-none d-xl-block"></span>
-          <a class="nav-link d-flex align-items-center px-2" href="#">
-            <i class="bi bi-grid-3x3-gap-fill me-2 small-icon"></i>
-            Subscriptions
-          </a>
+    <!-- Center links (keeps center on large screens) -->
+    <div class="collapse navbar-collapse mx-auto" id="mainNav">
+      <ul class="navbar-nav  d-flex align-items-start">
+        <li class="nav-item">
+          <a class="nav-link" style="color: black;" href="#">MENU</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"style="color: black;" href="#">REWARDS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"style="color: black;"href="#">GIFT CARDS</a>
         </li>
       </ul>
+    </div>
 
-      <!-- Right controls -->
-      <div class="d-flex align-items-center ms-auto gap-3">
+    <!-- Right actions -->
+    <div class="d-flex right-actions align-items-center">
+      <a class="find-store" href="#" aria-label="Find a store">
+        <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+        <span class="d-none d-md-inline">Find a store</span>
+      </a>
 
-        <!-- Search -->
-        <button class="btn btn-link text-light p-0 search-btn" aria-label="Search">
-          <i class="bi bi-search fs-5"></i>
-        </button>
+      <a class="btn btn-outline-secondary btn-signin d-none d-sm-inline" href="#" role="button">Sign in</a>
 
-        <!-- Language (EN) with caret -->
-        <div class="dropdown">
-          <button class="btn btn-link text-light d-flex align-items-center p-0" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="me-1">EN</span>
-            <i class="bi bi-caret-down-fill small-icon"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
-            <li><a class="dropdown-item" href="#">EN</a></li>
-            <li><a class="dropdown-item" href="#">ES</a></li>
-          </ul>
-        </div>
-
-        <!-- Apps grid icon -->
-        <button class="btn btn-link text-light p-0" aria-label="Apps">
-          <i class="bi bi-grid fs-4"></i>
-        </button>
-
-        <!-- Avatar -->
-        <div class="avatar-wrapper">
-          <img src="https://via.placeholder.com/36" alt="avatar" class="avatar-img rounded-circle">
-        </div>
-
-        <!-- Join Prime button -->
-        <a class="btn join-prime-btn d-none d-md-inline-block" href="#"><img src="./Screenshot 2025-12-11 183811.png" alt=""></a>
-
-      </div>
+      <a class="btn btn-join btn-join" href="#" role="button">Join now</a>
     </div>
   </div>
 </nav>
 
-<!-- Bootstrap JS (bundle includes Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>It's a great day for coffee <button class="btn btn-cta">Start an order</button></h1>
+      
+    </div>
+  </section>
+
+  <!-- RED SECTION 1: image + text -->
+  <section class="section-red">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 order-1 order-lg-1">
+          <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103767.jpg" alt="Seasonal drink" class="img-fluid img-full">
+        </div>
+
+        <div class="col-lg-6 text-center text-lg-start order-2 order-lg-2">
+          <h2 class="display-6 mb-3">Bring on the merry</h2>
+          <p class="lead mb-4"><strong>Festive flavors of spiced gingerbread, rich caramel and sweet peppermint are here to make every moment merrier.</strong></p>
+          <button class="btn btn-light rounded-pill px-4">Order a seasonal treat</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED SECTION 2: reversed on large screens -->
+  <section class="section-red">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 order-2 order-lg-1 text-center text-lg-start">
+          <h2 class="display-6 mb-3">Our Roller Rabbit collection is here</h2>
+          <p class="lead mb-4"><strong>Grab whimsical, limited-edition drinkware and Starbucks Card at your local coffeehouse. While supplies last.</strong></p>
+          <button class="btn btn-light rounded-pill px-4">Learn more</button>
+        </div>
+
+        <div class="col-lg-6 order-1 order-lg-2">
+          <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103882.jpg" alt="Roller Rabbit collection" class="img-fluid img-full">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GREEN SECTION: image + text -->
+  <section class="section-green">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6">
+          <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103989.jpg" alt="Send holiday joy" class="img-fluid img-full">
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+          <h2 class="display-6 mb-3">Send holiday joy</h2>
+          <p class="lead mb-4"><strong>Share the gift of coffee, festive treats and more with a Starbucks Card. Perfect for anyone on your list.</strong></p>
+          <button class="btn btn-outline-light rounded-pill px-4">Send an eGift</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: donation/promo -->
+  <section class="section-green">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6 text-center text-md-start">
+          <h2 class="display-6 mb-3">A little bite, a lot of good</h2>
+          <p class="lead mb-4">For every purchase of Crispy Grilled Cheese on Sourdough at participating locations, we'll donate the value of two school meals* to support programs that feed kids. Together we'll build a brighter future.</p>
+          <button class="btn btn-outline-light rounded-pill px-4">Order now</button>
+        </div>
+
+        <div class="col-md-6">
+          <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103839.jpg" alt="Crispy Grilled Cheese" class="img-fluid img-full">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section-green">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6">
+          <img src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-103476.jpg" alt="Rewards offer" class="img-fluid img-full">
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+          <h2 class="display-6 mb-3">Your free cup of cheer</h2>
+          <p class="lead mb-4">Celebrate the season with a free handcrafted drink with purchase. It's our gift to you during your first week as a Starbucks® Rewards member.**</p>
+          <button class="btn btn-light rounded-pill px-4">Join now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="py-4 text-center small-note">
+    <div class="container">
+      <p class="mb-2">*For every Crispy Grilled Cheese on Sourdough purchased between December 2, 2025, and January 5, 2026, in participating stores in the US and Canada, Starbucks will donate $0.50 to World Food Program USA...</p>
+      <p class="mb-0">**Valid for new Starbucks Rewards members for 7 days from sign up. Coupon will be available in the offers tab of your Starbucks app...</p>
+    </div>
+  </section>
+
+  <hr class="hr-custom">
+
+  <!-- FOOTER TOP (grid) -->
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row text-white">
+        <div class="col-6 col-md-2 mb-3">
+          <h6>About Us</h6>
+          <ul class="footer-links p-0">
+            <li>Our Company</li>
+            <li>Our coffee</li>
+            <li>About Starbucks</li>
+            <li>Starbucks Archive</li>
+            <li>Investor Relations</li>
+            <li>Customer Services</li>
+            <li>Contact Us</li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h6>Careers</h6>
+          <ul class="footer-links p-0">
+            <li>Culture and Values</li>
+            <li>Belonging at Starbucks</li>
+            <li>College Achievement Plan</li>
+            <li>Alumni Community</li>
+            <li>U.S Careers</li>
+            <li>International careers</li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h6>Social Impact</h6>
+          <ul class="footer-links p-0">
+            <li>Communities</li>
+            <li>Starbucks Foundation</li>
+            <li>Sustainability</li>
+            <li>Environmental and Social Impact Reporting</li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h6>For Business Partners</h6>
+          <ul class="footer-links p-0">
+            <li>Landlord Support Centre</li>
+            <li>Suppliers</li>
+            <li>Corporate Gift Card Sales</li>
+            <li>Office and Food Service Coffee</li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h6>Order & Pick Up</h6>
+          <ul class="footer-links p-0">
+            <li>Order on the App</li>
+            <li>Order on the Web</li>
+            <li>Delivery</li>
+            <li>Order and Pick Up Options</li>
+            <li>Explore and Find Coffee for Home</li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-2 d-flex align-items-center justify-content-md-end">
+          <div class="d-flex align-items-center">
+            <!-- small social icons -->
+            <a class="me-2" href="https://open.spotify.com/user/starbucks" aria-label="Spotify">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.png" alt="" class="logo">
+            </a>
+            <a class="me-2" href="https://facebook.com/starbucks" aria-label="Facebook">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="" class="logo">
+            </a>
+            <a class="me-2" href="https://instagram.com/starbucks" aria-label="Instagram">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="" class="logo">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="hr-custom mt-4">
+
+      <div class="row mt-3 text-muted">
+        <div class="col-md-6">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item me-3">Privacy Notice</li>
+            <li class="list-inline-item me-3">Consumer Health Privacy Notice</li>
+            <li class="list-inline-item me-3">Terms Of Use</li>
+            <li class="list-inline-item me-3">Do Not Sell or Share My Personal Information</li>
+          </ul>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <small>&copy; 2025 Starbucks</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+ 
 </body>
 </html>
